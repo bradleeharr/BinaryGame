@@ -27,15 +27,16 @@ function setup() {
   correctSound.setVolume(0.5);
   incorrectSound.setVolume(0.4);
   clickSound.setVolume(0.1);
-  let cnv = createCanvas(800, 600);
+  let cnv = createCanvas(1200, 800);
   cnv.parent('canvasContainer'); 
+  resizeCanvas(windowWidth, windowHeight);
+
   newRound();
 }
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
-  let cnv = createCanvas(800, 600);
-  cnv.parent('canvasContainer'); 
+
 }
 
 
@@ -58,18 +59,32 @@ function newRound() {
   binaryString = Array(maxBinaryLength).fill(0).join('');  
   playerAnswer = 0;
 }
+const BLACK = '#121212'
+const WHITEG = '#BBEEBB'
+const DARKG = '#AADDAA'
 
+const numCols = 20;
+const numRows = 50;
+let rain = Array(numCols).fill(new Array(numRows).fill(0));
 function drawTitleScreen() {
-  background('#f5f5f5');
+  textAlign(CENTER);
+  background(BLACK);
   textSize(48);
-  fill('#333');
-  text('Binary Learning Game', width / 4, height / 3);
-  textSize(32);
-  text('Click to Start', width / 2, height / 2);
+  fill(WHITEG);
+  text('Binary Learning Game', width / 2, height / 2 - 80);
+  textSize(22);
+  text('Click to Start', width / 2, height / 2 );
+
+  for (let i = 0; i < numCols; i++) {
+    fill(DARKG);
+    rect(i*10, 200, 10, 10);
+  }
+
 }
 
+function drawInfo() {
+  textAlign(LEFT);
 
-function drawGame() {
   background('#f5f5f5'); 
 
   textSize(32);
@@ -82,16 +97,27 @@ function drawGame() {
   text(`Binary Options: ${binaryOptions}`, 150, 450);
   text(`Binary Answer: ${binaryAnswer}`, 250, 500); */
 
-
   text(`Lives: ${lives}/3`, 600, 50);
+}
 
+let optionWidth = 50;
+let optionHeight = 50;
+let xStart = 50; // X-coordinate where options start
+let spacing = 60; // Spacing between options
 
+function drawGame() {
+  drawInfo();
+  xStart = width / 2 - (spacing * (maxBinaryLength-1))/2;
+  textAlign(CENTER);
   // Style binary choice buttons
   for (let i = 0; i < maxBinaryLength; i++) {
       let isSelected = binaryOptions[i];
       let isCorrect = (binaryAnswer[i] == binaryOptions[i]);
-      let x = 50 + i * 60; // Increase spacing
+      let x = xStart + i * spacing; // Increase spacing
 
+
+
+      /* Choose Color of Selection */
       if (isSelected && isCorrect) {
         fill('#4CAF50'); // Green
       }
@@ -101,18 +127,20 @@ function drawGame() {
       if (!isSelected) {
         fill('#FFFFFF');
       }
+      /* Draw box */
       stroke('#333');
+      rect(x, height/2, optionWidth, optionHeight, 5); 
+   
 
-      rect(x, 150, 50, 50, 5); 
       if (showValues) {
-        text(2**(maxBinaryLength-i-1), x, 250);
+        text(2**(maxBinaryLength-i-1), x, height/2);
       }
       if (isSelected) {
           fill('#FFFFFF');
-          text('1', x + 15, 185);
+          text('1', x + 15, height/2-40);
       } else {
           fill('#333');
-          text('0', x + 15, 185);
+          text('0', x + 15, height/2-40);
       }
   }
 }
@@ -126,21 +154,16 @@ function draw() {
 }
 
 
+
 function mousePressed() {
   if (!isGameStarted) {
     isGameStarted = true;
     newRound();
   } 
   else {
-    let optionWidth = 50;
-    let optionHeight = 50;
-    let xStart = 50; // X-coordinate where options start
-    let yStart = 150; // Y-coordinate where options start
-    let spacing = 60; // Spacing between options
-
     for (let i = 0; i < maxBinaryLength; i++) {
         let x = xStart + i * spacing;
-        let y = yStart;
+        let y = height/2;
 
         // Check if the mouse click is within the boundaries of the rectangle
         if (mouseX > x && mouseX < x + optionWidth && mouseY > y && mouseY < y + optionHeight) {
