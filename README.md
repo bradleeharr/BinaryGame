@@ -11,8 +11,6 @@ This program provides a useful tool for practicing how to quickly convert binary
 
 <p align="center"> 
   <img src=https://github.com/bradleeharr/blg/assets/56418392/5ecdf647-c06d-4d4e-9e9a-4f1d348e4c59"/>
-
-<img src="https://github.com/bradleeharr/blg/assets/56418392/681a52b5-a90a-42c7-80f1-0f1f11434eac"/>
 </p>
 
 - [x] Binary to Decimal Conversion
