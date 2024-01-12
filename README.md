@@ -1,5 +1,5 @@
 # Binary Learning Game
-
+https://bradleeharr.github.io/blg/
   <h1 align="center"> 2^10</h1>
   
   >Binary: a 2-bit number system, used in computers
@@ -10,7 +10,7 @@ This program provides a useful tool for practicing how to quickly convert binary
 
 
 <p align="center"> 
-<img src="https://github.com/bradleeharr/blg/assets/56418392/681a52b5-a90a-42c7-80f1-0f1f11434eac">
+  <img src=https://github.com/bradleeharr/blg/assets/56418392/5ecdf647-c06d-4d4e-9e9a-4f1d348e4c59"/>
 </p>
 
 - [x] Binary to Decimal Conversion
