@@ -5,15 +5,24 @@ let rain = Array(numCols).fill(new Array(numRows).fill(0));
 let time = 0;
 let rt = 0
 
-const colors = ['#121212', '#330000', '#00ff00', '#11ff11', '#22ff22', '#33ff33', '#44ff44']
-let colorIdx = 0
-
+const colors = ['#000', '#115511', '#121212', '#331133', '#551111', '#111155', '#335533']
+let colorIdx = -1
+let latch = 0;
 function drawTitleScreen() {
     background(BLACK);
      
 
     rt++;
     time = 1*height*Math.abs(Math.sin(rt*0.01))-100;
+    
+    if (time < 0 && !latch) { 
+      colorIdx = (colorIdx + 1) % colors.length
+      latch = 1;
+      console.log(colorIdx);
+    }
+    if (time > 0 && latch) {
+      latch = 0;
+    }
 
     for (let i = 0; i < numCols; i++) {
       fill(WHITEG);
