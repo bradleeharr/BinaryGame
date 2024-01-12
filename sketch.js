@@ -60,7 +60,7 @@ function newRound() {
   playerAnswer = 0;
 }
 const BLACK = '#121212'
-const WHITEG = '#BBEEBB'
+const WHITEG = '#BBFFBB'
 const DARKG = '#AADDAA'
 
 const numCols = 20;
@@ -71,6 +71,8 @@ function drawTitleScreen() {
   background(BLACK);
   textSize(48);
   fill(WHITEG);
+  textFont('Courier New');
+
   text('Binary Learning Game', width / 2, height / 2 - 80);
   textSize(22);
   text('Click to Start', width / 2, height / 2 );
@@ -83,13 +85,14 @@ function drawTitleScreen() {
 }
 
 function drawInfo() {
-  textAlign(LEFT);
+  textAlign(CENTER);
 
-  background('#f5f5f5'); 
+  background(BLACK);
 
+
+  fill(WHITEG); 
   textSize(32);
-  fill('#333'); 
-  text(`Decimal Number: ${currentDecimal}`, 50, 50);
+  text(`Make the Decimal Number: ${currentDecimal}`, width/2, height/2 - 200);
   text(`Score: ${score}`, 50, 100);
   text(`Number: ${playerAnswer}`, 50, 300);
 
@@ -100,14 +103,14 @@ function drawInfo() {
   text(`Lives: ${lives}/3`, 600, 50);
 }
 
-let optionWidth = 50;
-let optionHeight = 50;
+let optionWidth = 80;
+let optionHeight = 80;
 let xStart = 50; // X-coordinate where options start
-let spacing = 60; // Spacing between options
+let spacing = 100; // Spacing between options
 
 function drawGame() {
   drawInfo();
-  xStart = width / 2 - (spacing * (maxBinaryLength-1))/2;
+  xStart = width / 2 - (spacing * (maxBinaryLength))/2;
   textAlign(CENTER);
   // Style binary choice buttons
   for (let i = 0; i < maxBinaryLength; i++) {
@@ -129,18 +132,19 @@ function drawGame() {
       }
       /* Draw box */
       stroke('#333');
-      rect(x, height/2, optionWidth, optionHeight, 5); 
+      rect(x, height/2, optionWidth, optionHeight, 15); 
    
-
+      /* Draw numbers Below */
       if (showValues) {
-        text(2**(maxBinaryLength-i-1), x, height/2);
+        text(2**(maxBinaryLength-i-1), x + optionWidth/2 , height/2 + optionHeight + 100);
       }
+      /* Draw bits */
       if (isSelected) {
           fill('#FFFFFF');
-          text('1', x + 15, height/2-40);
+          text('1', x + optionWidth/2, height/2-40);
       } else {
           fill('#333');
-          text('0', x + 15, height/2-40);
+          text('0', x + optionWidth/2, height/2-40);
       }
   }
 }
