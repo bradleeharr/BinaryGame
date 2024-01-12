@@ -17,6 +17,8 @@ let clickSound;
 let font;
 let font_bold;
 let font_oblique
+let largeFontSize;
+let smallFontSize;
 
 let isGameStarted = false;
 
@@ -28,14 +30,14 @@ function preload() {
     font = loadFont('fonts/FallingSky-JKwK.otf')
     font_bold = loadFont('fonts/FallingSkyBold-zemL.otf')
     font_oblique = loadFont('fonts/FallingSkyBlackOblique-j37y.otf')
+    
 }
-
 
 function setup() {
   correctSound.setVolume(0.5);
   incorrectSound.setVolume(0.4);
   clickSound.setVolume(0.1);
-  let cnv = createCanvas(1200, 800);
+  let cnv = createCanvas(800, 600);
   cnv.parent('canvasContainer'); 
   resizeCanvas(windowWidth, windowHeight);
 
@@ -67,53 +69,16 @@ function newRound() {
   binaryString = Array(maxBinaryLength).fill(0).join('');  
   playerAnswer = 0;
 }
-const BLACK = '#121212'
-const WHITEG = '#BBFFBB'
-const DARKG = '#22DD22'
-const WHITE = '#FFFFFF'
 
-const numCols = 200;
-const numRows = 50;
-let rain = Array(numCols).fill(new Array(numRows).fill(0));
-let posrain = 0;
-
-function drawTitleScreen() {
-  textAlign(CENTER);
-  background(BLACK);
-  textSize(48);
-
-  fill(WHITEG);
-  textFont(font_oblique);
-  text('Binary Learning Game', width / 2, height / 2 - 80);
-  textSize(22); textFont(font);
-  text('Click to Start', width / 2, height / 2 );
-
-  for (let i = 0; i < numCols; i++) {
-    fill(WHITEG);
-    rect(i*10, posrain, 10, 10);
-  }
-  posrain = (posrain + 3) % (height+100);
-  text(`${dec2bin(posrain)}`, width/2, posrain);
-  fill(200, 200, 200, 1.0);
-  rect(0, 0, width, posrain)
-
-}
-
-function dec2bin(dec) {
-  return (dec >>> 0).toString(2);
-}
 
 function drawInfo() {
   textAlign(CENTER);
-
   background(BLACK);
-
-
   fill(WHITEG); 
   textSize(32);
   text(`Make the Decimal Number: ${currentDecimal}`, width/2, height/2 - 250);
-  text(`Lives: ${lives}/3`, width/2, height/2 - 400);
-  text(`Score: ${score}`, width/2, height/2 - 350);
+  text(`Lives: ${lives}/3`, width/2 + 200, height/2 - 350);
+  text(`Score: ${score}`, width/2 - 200, height/2 - 350);
   textSize(80);
   fill(WHITE);
   text(`${playerAnswer}`, width/2, height/2 - 125);
@@ -167,6 +132,8 @@ function drawGame() {
         textSize(22); text(2**(maxBinaryLength-i-1), x + optionWidth/2 , height/2 + optionHeight + 100);
       }
   }
+
+  //drawMouse();
 }
 
 function draw() {
