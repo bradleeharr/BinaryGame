@@ -20,6 +20,6 @@ This program provides a useful tool for practicing how to quickly convert binary
 - [ ] Masking Operations with ^ & and |
 - [x] Sound Effects
 - [ ] Sound Options
-
+- [ ] Mobile Support and Screen Resolution Layout fixes
 
 Made using [p5.js](https://p5js.org/).
