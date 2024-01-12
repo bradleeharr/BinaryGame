@@ -13,6 +13,10 @@ let correctSound;
 let incorrectSound;
 let clickSound;
 
+/* Font */
+let font;
+let font_bold;
+let font_oblique
 
 let isGameStarted = false;
 
@@ -20,6 +24,10 @@ function preload() {
     correctSound = loadSound('success-1-6297.mp3');
     incorrectSound = loadSound('negative_beeps-6008.mp3');
     clickSound = loadSound('decidemp3-14575.mp3');
+
+    font = loadFont('fonts/FallingSky-JKwK.otf')
+    font_bold = loadFont('fonts/FallingSkyBold-zemL.otf')
+    font_oblique = loadFont('fonts/FallingSkyBlackOblique-j37y.otf')
 }
 
 
@@ -41,7 +49,7 @@ function windowResized() {
 
 
 function newRound() {
-  currentDecimal = Math.floor(Math.random() * 64) + 1; // Adjust range as needed
+  currentDecimal = Math.floor(Math.random() * 256 ) + 1; // Adjust range as needed
 
   maxBinaryLength = 2;
   let maxVal = 4;
@@ -61,27 +69,38 @@ function newRound() {
 }
 const BLACK = '#121212'
 const WHITEG = '#BBFFBB'
-const DARKG = '#AADDAA'
+const DARKG = '#22DD22'
+const WHITE = '#FFFFFF'
 
-const numCols = 20;
+const numCols = 200;
 const numRows = 50;
 let rain = Array(numCols).fill(new Array(numRows).fill(0));
+let posrain = 0;
+
 function drawTitleScreen() {
   textAlign(CENTER);
   background(BLACK);
   textSize(48);
-  fill(WHITEG);
-  textFont('Courier New');
 
+  fill(WHITEG);
+  textFont(font_oblique);
   text('Binary Learning Game', width / 2, height / 2 - 80);
-  textSize(22);
+  textSize(22); textFont(font);
   text('Click to Start', width / 2, height / 2 );
 
   for (let i = 0; i < numCols; i++) {
-    fill(DARKG);
-    rect(i*10, 200, 10, 10);
+    fill(WHITEG);
+    rect(i*10, posrain, 10, 10);
   }
+  posrain = (posrain + 3) % (height+100);
+  text(`${dec2bin(posrain)}`, width/2, posrain);
+  fill(200, 200, 200, 1.0);
+  rect(0, 0, width, posrain)
 
+}
+
+function dec2bin(dec) {
+  return (dec >>> 0).toString(2);
 }
 
 function drawInfo() {
@@ -92,15 +111,17 @@ function drawInfo() {
 
   fill(WHITEG); 
   textSize(32);
-  text(`Make the Decimal Number: ${currentDecimal}`, width/2, height/2 - 200);
-  text(`Score: ${score}`, 50, 100);
-  text(`Number: ${playerAnswer}`, 50, 300);
-
-  /* text(`Binary String: ${binaryString}`, 50, 400);
+  text(`Make the Decimal Number: ${currentDecimal}`, width/2, height/2 - 250);
+  text(`Lives: ${lives}/3`, width/2, height/2 - 400);
+  text(`Score: ${score}`, width/2, height/2 - 350);
+  textSize(80);
+  fill(WHITE);
+  text(`${playerAnswer}`, width/2, height/2 - 125);
+  /*
+  text(`Binary String: ${binaryString}`, 50, 400);
   text(`Binary Options: ${binaryOptions}`, 150, 450);
   text(`Binary Answer: ${binaryAnswer}`, 250, 500); */
 
-  text(`Lives: ${lives}/3`, 600, 50);
 }
 
 let optionWidth = 80;
@@ -118,8 +139,6 @@ function drawGame() {
       let isCorrect = (binaryAnswer[i] == binaryOptions[i]);
       let x = xStart + i * spacing; // Increase spacing
 
-
-
       /* Choose Color of Selection */
       if (isSelected && isCorrect) {
         fill('#4CAF50'); // Green
@@ -132,19 +151,20 @@ function drawGame() {
       }
       /* Draw box */
       stroke('#333');
-      rect(x, height/2, optionWidth, optionHeight, 15); 
+      rect(x, height/2+50, optionWidth, optionHeight, 15); 
    
-      /* Draw numbers Below */
-      if (showValues) {
-        text(2**(maxBinaryLength-i-1), x + optionWidth/2 , height/2 + optionHeight + 100);
-      }
       /* Draw bits */
       if (isSelected) {
-          fill('#FFFFFF');
-          text('1', x + optionWidth/2, height/2-40);
+          fill('#FFFFFF'); textSize(64);
+          text('1', x + optionWidth/2, height/2+10);
       } else {
-          fill('#333');
-          text('0', x + optionWidth/2, height/2-40);
+          fill('#888'); textSize(64);
+          text('0', x + optionWidth/2, height/2+10);
+      }
+
+      /* Draw numbers Below */
+      if (showValues) {
+        textSize(22); text(2**(maxBinaryLength-i-1), x + optionWidth/2 , height/2 + optionHeight + 100);
       }
   }
 }
@@ -167,7 +187,7 @@ function mousePressed() {
   else {
     for (let i = 0; i < maxBinaryLength; i++) {
         let x = xStart + i * spacing;
-        let y = height/2;
+        let y = height/2+50;
 
         // Check if the mouse click is within the boundaries of the rectangle
         if (mouseX > x && mouseX < x + optionWidth && mouseY > y && mouseY < y + optionHeight) {
