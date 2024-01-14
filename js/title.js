@@ -11,6 +11,28 @@ let latch = 0;
 
 let buttonW = 100;
 let buttonH = 50;
+
+
+function scrollingBar(time, height, numCols, BGCOLOR) {
+  for (let i = 0; i < numCols; i++) {
+    fill(WHITEG);
+    rect(i*10, time, 10, 10);
+  }
+  for (let i = 0; i < numCols; i++) {
+    fill(WHITEG);
+    rect(i*10, time - height, 10, 10);
+  }
+
+  fill(BGCOLOR);
+  if (time > height)
+  {
+    rect(0, time-height, width, height);
+  }
+  else {
+    rect(0, 0, width, time);
+  }
+}
+
 function drawTitleScreen() {
     background(BLACK);
      
@@ -27,26 +49,9 @@ function drawTitleScreen() {
       latch = 0;
     }
 
-    for (let i = 0; i < numCols; i++) {
-      fill(WHITEG);
-      rect(i*10, time, 10, 10);
-    }
-    for (let i = 0; i < numCols; i++) {
-      fill(WHITEG);
-      rect(i*10, time - height, 10, 10);
-    }
-
-
     BGCOLOR = colors[colorIdx];
-    fill(BGCOLOR);
-    if (time > height)
-    {
-      rect(0, time-height, width, height);
-    }
-    else {
-      rect(0, 0, width, time);
-    }
 
+    scrollingBar(time, height, numCols, BGCOLOR);
 
     drawMouse();
 
