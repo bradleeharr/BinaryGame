@@ -33,10 +33,29 @@ function scrollingBar(time, height, numCols, BGCOLOR) {
   }
 }
 
+function drawButton(X, Y, w, h, label) {
+  fill(WHITEG);
+  rect(X, Y, w, h, 10);
+  fill('#121212');
+  textSize(22);
+  text(label, X+w/2, Y+h/2+8);
+}
+
+function drawTitleText()
+{
+  textAlign(CENTER);
+  textSize(36);
+  text(`${dec2bin(time)}`, width/2, time)
+  text(`${dec2bin(time)}`, width/2, time - height - 10);
+  fill(WHITEG);
+  textFont(font_oblique);
+  text('Binary Learning Game', width / 2, height / 2 - 80);
+  textSize(22); textFont(font);
+  text('Click to Start', width / 2, height / 2 - 10);
+}
+
 function drawTitleScreen() {
     background(BLACK);
-     
-
     rt++;
     time = 1*height*Math.abs(Math.sin(rt*0.01))-100;
     
@@ -52,21 +71,8 @@ function drawTitleScreen() {
     BGCOLOR = colors[colorIdx];
 
     scrollingBar(time, height, numCols, BGCOLOR);
-
     drawMouse();
-
-
-    textAlign(CENTER);
-    textSize(36);
-    text(`${dec2bin(time)}`, width/2, time)
-    text(`${dec2bin(time)}`, width/2, time - height - 10);
-    fill(WHITEG);
-    textFont(font_oblique);
-    text('Binary Learning Game', width / 2, height / 2 - 80);
-    textSize(22); textFont(font);
-    text('Click to Start', width / 2, height / 2 - 10);
-
-
+    drawTitleText();
 
     /* Drawing Buttons */
     textAlign(CENTER);
@@ -79,14 +85,10 @@ function drawTitleScreen() {
     let button2X = width/2-buttonW/2 + 80;
     let button2Y = height/2+50;
     drawButton(button2X, button2Y, buttonW, buttonH, 'Hex');
-    fill(WHITE);
-    text('Coming Soon!', button2X+60, button2Y+80);
+
+    let button3X = width/2-buttonW;
+    let button3Y = height/2+180;
+    drawButton(button3X, button3Y, 2*buttonW, buttonH, 'Settings');
+    fill(WHITE); text('Coming Soon!', button2X+50, button2Y+80);
   }
 
-  function drawButton(X, Y, w, h, label) {
-    fill(WHITEG);
-    rect(X, Y, w, h, 10);
-    fill('#121212');
-    textSize(22);
-    text(label, X+w/2, Y+h/2+8);
-  }

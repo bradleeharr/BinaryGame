@@ -34,19 +34,19 @@ function preload() {
 
 } 
 
+
 function setup() {
   //correctSound.setVolume(0.5);
   //incorrectSound.setVolume(0.4);
   //clickSound.setVolume(0.1);
-  let cnv = createCanvas(800, 600);
+  let cnv = createCanvas(400, 600);
   cnv.parent('canvasContainer'); 
-  resizeCanvas(windowWidth, windowHeight);
-
+  windowResized()
   newRound();
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  resizeCanvas(windowWidth*0.99, windowHeight*0.99);
 
 }
 
