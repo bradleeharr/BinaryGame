@@ -16,27 +16,28 @@ let clickSound;
 /* Font */
 let font;
 let font_bold;
-let font_oblique
+let font_oblique;
 let largeFontSize;
 let smallFontSize;
 
 let isGameStarted = false;
 
+
 function preload() {
-    correctSound = loadSound('success-1-6297.mp3');
-    incorrectSound = loadSound('negative_beeps-6008.mp3');
-    clickSound = loadSound('decidemp3-14575.mp3');
+    //correctSound = loadSound('sound/success-1-6297.mp3');
+    //incorrectSound = loadSound('sound/negative_beeps-6008.mp3');
+    //clickSound = loadSound('sound/decidemp3-14575.mp3');
 
     font = loadFont('fonts/FallingSky-JKwK.otf')
     font_bold = loadFont('fonts/FallingSkyBold-zemL.otf')
     font_oblique = loadFont('fonts/FallingSkyBlackOblique-j37y.otf')
-    
-}
+
+} 
 
 function setup() {
-  correctSound.setVolume(0.5);
-  incorrectSound.setVolume(0.4);
-  clickSound.setVolume(0.1);
+  //correctSound.setVolume(0.5);
+  //incorrectSound.setVolume(0.4);
+  //clickSound.setVolume(0.1);
   let cnv = createCanvas(800, 600);
   cnv.parent('canvasContainer'); 
   resizeCanvas(windowWidth, windowHeight);
@@ -160,11 +161,11 @@ function mousePressed() {
         if (mouseX > x && mouseX < x + optionWidth && mouseY > y && mouseY < y + optionHeight) {
             binaryOptions[i] = binaryOptions[i] ? 0 : 1; // Toggle the option
             if (binaryOptions[i] === binaryAnswer[i]) {
-              clickSound.play(); // Play click sound
+              //clickSound.play(); // Play click sound
             }
             else {
               lives--;
-              incorrectSound.play();
+              //incorrectSound.play();
             }
             checkAnswer();
             break;
@@ -179,13 +180,13 @@ function checkAnswer() {
   playerAnswer = parseInt(binaryString, 2);
   if (playerAnswer === currentDecimal) {
       score++;
-      correctSound.play(); // Play sound for correct answer
+      //correctSound.play(); // Play sound for correct answer
       background('#d5ffd5'); 
       newRound(); // Start a new round
   } 
     else if (lives < 0) {
     isGameStarted = false;
-    incorrectSound.play();
+    //incorrectSound.play();
     score = 0; // Reset score if incorrect
     lives = 3;
     newRound(); // Start a new round 
