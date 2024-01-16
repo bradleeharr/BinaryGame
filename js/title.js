@@ -1,4 +1,3 @@
-
 const numCols = 800;
 const numRows = 50;
 let rain = Array(numCols).fill(new Array(numRows).fill(0));

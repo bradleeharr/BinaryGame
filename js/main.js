@@ -1,7 +1,5 @@
 
 let gameState = "TITLE";
-let showValues = false;
-let showSettings = false;
 
 let startBinaryButton;
 let startHexButton;
@@ -9,11 +7,15 @@ let settingsButton;
 
 let sounds;
 let fonts;
+let settings;
 let game;
+
 
 function preload() {
   sounds = new Sounds();
   fonts = new Fonts();
+  settings = new Settings();
+  
 } 
 
 function setup() {
@@ -34,7 +36,7 @@ function titleButtons() {
   startBinaryButton = new Button(button1X, button1Y, buttonW, buttonH, 'Binary');
   startHexButton = new Button(button2X, button2Y, buttonW, buttonH, 'Hex');
   settingsButton = new Button(button3X, button3Y, 2*buttonW, buttonH, 'Settings');
-  settingsWindow = new Settings(0, 0, width, height);
+  settingsWindow = new SettingsWindow(0, 0, width, height, settings, sounds);
 }
 
 function windowResized() {
@@ -58,13 +60,11 @@ function draw() {
 function mousePressed() {
   if (gameState === "TITLE") {
     if (startBinaryButton.isClicked(mouseX, mouseY)) {
-      game = new BinaryGame(sounds, showValues);
-      game.newRound();
+      game = new BinaryGame(sounds, settings);
       gameState = "GAME";
     }
     if (startHexButton.isClicked(mouseX, mouseY)) {
-      game = new HexGame(sounds, showValues); 
-      game.newRound();
+      game = new HexGame(sounds, settings); 
       gameState = "GAME";
     }
     if (settingsButton.isClicked(mouseX, mouseY)) {
@@ -72,7 +72,9 @@ function mousePressed() {
     }
   } 
   else if (gameState === "SETTINGS") {
-    gameState = "TITLE";
+    if (settingsWindow.isClicked(mouseX, mouseY)) {
+      gameState = "TITLE";
+    }
   }
   else if (gameState === "GAME") 
   {

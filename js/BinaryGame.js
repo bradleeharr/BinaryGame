@@ -1,19 +1,21 @@
 class BinaryGame {
-    constructor(sounds, showValues) {
+    constructor(sounds, settings) {
         this.sounds = sounds;
-        this.showValues = showValues;
+        this.settings = settings;
         this.score = 0
         this.lives = 3
         this.maxBinaryLength = 2
-        this.binaryAnswer;
-        this.binaryOptions;
-        this.playerAnswer;
-        this.currentDecimal;
         this.optionWidth = 70;
         this.optionHeight = 70;
         this.xStart = 50; // X-coordinate where options start
         this.spacing = 90; // Spacing between options
+        this.binaryAnswer;
+        this.binaryOptions;
+        this.playerAnswer;
+        this.currentDecimal;
+
         this.gameEnd = false;
+        this.newRound()
     }
     newRound() {
         this.maxBinaryLength = 2;
@@ -53,6 +55,7 @@ class BinaryGame {
         textAlign(CENTER);
         // Style binary choice buttons
         for (let i = 0; i < this.maxBinaryLength; i++) {
+            console.log("Reached");
             let isSelected = this.binaryOptions[i];
             let isCorrect = (this.binaryAnswer[i] == this.binaryOptions[i]);
             let x = this.xStart + i * this.spacing; // Increase spacing
@@ -80,7 +83,7 @@ class BinaryGame {
                 text('0', x + this.optionWidth/2, height/2+10);
             }
             /* Draw numbers Below */
-            if (showValues) {
+            if (this.settings.showValues) {
               textSize(22); text(2**(this.maxBinaryLength-i-1), x + this.optionWidth/2 , height/2 + this.optionHeight + 100);
             }
         } 

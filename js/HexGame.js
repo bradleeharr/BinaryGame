@@ -1,7 +1,7 @@
 class HexGame {
-    constructor(sounds, showValues) {
+    constructor(sounds, settings) {
         this.sounds = sounds;
-        this.showValues = showValues;
+        this.settings = settings;
         this.score = 0
         this.lives = 3
         this.maxBinaryLength = 2
@@ -16,8 +16,8 @@ class HexGame {
         this.gameEnd = false;
     }
     newRound() {
-        this.maxBinaryLength = 2;
-        this.currentDecimal = Math.floor(Math.random() * 256 ) + 1; // Adjust range as needed
+        this.maxHexLength = 2;
+        this.currentDecimal = Math.floor(Math.random() * 2048 ) + 1; // Adjust range as needed
         
         let maxVal = 4;
           while (maxVal <= this.currentDecimal) {
@@ -80,7 +80,7 @@ class HexGame {
                 text('0', x + this.optionWidth/2, height/2+10);
             }
             /* Draw numbers Below */
-            if (showValues) {
+            if (this.showValues) {
               textSize(22); text(2**(this.maxBinaryLength-i-1), x + this.optionWidth/2 , height/2 + this.optionHeight + 100);
             }
         } 
