@@ -15,7 +15,7 @@ This program provides a useful tool for practicing how to quickly convert binary
 
 - [x] Binary to Decimal Conversion
 - [x] Title Screen
-- [ ] Title Screen Animation
+- [x] Title Screen Animation
 - [ ] Hexadecimal Conversion
 - [ ] Masking Operations with ^ & and |
 - [x] Sound Effects
