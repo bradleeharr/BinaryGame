@@ -1,5 +1,5 @@
 
-let isGameStarted = false;
+let gameState = "TITLE";
 let showValues = false;
 let showSettings = false;
 
@@ -43,41 +43,50 @@ function windowResized() {
 }
 
 function draw() {
-  if (!isGameStarted && !showSettings) {
+  if (gameState === "TITLE") {
     drawTitleScreen();
   }
-  else if (!isGameStarted && showSettings) {
+  else if (gameState === "SETTINGS") {
     settingsWindow.draw();
   }
-   else if (isGameStarted) {
+   else if (gameState === "GAME") {
     game.drawGame();
   }
 }
 
 
 function mousePressed() {
-  if (!isGameStarted && !showSettings) {
+  if (gameState === "TITLE") {
     if (startBinaryButton.isClicked(mouseX, mouseY)) {
-        isGameStarted = true;
-        game = new BinaryGame(sounds, showValues);
-        game.newRound();
+      game = new BinaryGame(sounds, showValues);
+      game.newRound();
+      gameState = "GAME";
+    }
+    if (startHexButton.isClicked(mouseX, mouseY)) {
+      game = new HexGame(sounds, showValues); 
+      game.newRound();
+      gameState = "GAME";
     }
     if (settingsButton.isClicked(mouseX, mouseY)) {
-      showSettings = true;
-      console.log("Settings");
+      gameState = "SETTINGS";
     }
   } 
-  else if (!isGameStarted && showSettings) {
-    showSettings = false;
+  else if (gameState === "SETTINGS") {
+    gameState = "TITLE";
+  }
+  else if (gameState === "GAME") 
+  {
+    game.mousePressed(mouseX, mouseY);  
+    if (game.gameEnd === true) {
+      gameState = "TITLE";
+      console.log("TEST");
+    }
   }
   else {
-    game.mousePressed(mouseX, mouseY);  
+    text("Error, invalid game state. Please refresh the page.", 0, 0);
   }
 
-  if (game.gameEnd === true) {
-    isGameStarted = false;
-    console.log("TEST");
-  }
+
 }
 
 
