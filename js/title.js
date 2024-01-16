@@ -48,11 +48,12 @@ function drawTitleText()
   text(`${dec2bin(time)}`, width/2, time)
   text(`${dec2bin(time)}`, width/2, time - height - 10);
   fill(WHITEG);
-  textFont(font_oblique);
+  textFont(fonts.font_oblique);
   text('Binary Learning Game', width / 2, height / 2 - 80);
-  textSize(22); textFont(font);
+  textSize(22); textFont(fonts.font);
   text('Click to Start', width / 2, height / 2 - 10);
 }
+
 
 function drawTitleScreen() {
     background(BLACK);
@@ -78,9 +79,8 @@ function drawTitleScreen() {
     textAlign(CENTER);
     fill(WHITEG);
 
-    let button1X = width/2-buttonW/2 - 80;
-    let button1Y = height/2+50;
-    drawButton(button1X, button1Y, buttonW, buttonH, 'Binary');
+    
+    startButton.draw();
 
     let button2X = width/2-buttonW/2 + 80;
     let button2Y = height/2+50;

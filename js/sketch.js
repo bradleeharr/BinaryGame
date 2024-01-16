@@ -9,40 +9,32 @@ let showValues = 1;
 let lives = 3;
 
 /* Sounds */
-let correctSound;
-let incorrectSound;
-let clickSound;
-
-/* Font */
-let font;
-let font_bold;
-let font_oblique;
-let largeFontSize;
-let smallFontSize;
-
 let isGameStarted = false;
 
+let startButton;
+
+let sounds;
+let fonts;
 
 function preload() {
-    //correctSound = loadSound('sound/success-1-6297.mp3');
-    //incorrectSound = loadSound('sound/negative_beeps-6008.mp3');
-    //clickSound = loadSound('sound/decidemp3-14575.mp3');
-
-    font = loadFont('fonts/FallingSky-JKwK.otf')
-    font_bold = loadFont('fonts/FallingSkyBold-zemL.otf')
-    font_oblique = loadFont('fonts/FallingSkyBlackOblique-j37y.otf')
+ 
 
 } 
 
-
 function setup() {
-  //correctSound.setVolume(0.5);
-  //incorrectSound.setVolume(0.4);
-  //clickSound.setVolume(0.1);
+  sounds = new Sounds();
+  fonts = new Fonts();
+  sounds.setVolume(1);
   let cnv = createCanvas(400, 600);
   cnv.parent('canvasContainer'); 
-  windowResized()
-  newRound();
+  windowResized();
+
+  let button1X = width/2-buttonW/2 - 80;
+  let button1Y = height/2+50;
+
+  
+  startButton = new Button(button1X, button1Y, buttonW, buttonH, 'Binary');
+
 }
 
 function windowResized() {
@@ -52,6 +44,8 @@ function windowResized() {
 
 
 function newRound() {
+  score = 0;
+  lives = 3;
   currentDecimal = Math.floor(Math.random() * 256 ) + 1; // Adjust range as needed
 
   maxBinaryLength = 2;
@@ -146,11 +140,13 @@ function draw() {
 }
 
 
-
 function mousePressed() {
   if (!isGameStarted) {
-    isGameStarted = true;
-    newRound();
+    if (startButton.isClicked(mouseX, mouseY))
+      {
+        isGameStarted = true;
+        newRound();
+      }
   } 
   else {
     for (let i = 0; i < maxBinaryLength; i++) {
@@ -161,11 +157,11 @@ function mousePressed() {
         if (mouseX > x && mouseX < x + optionWidth && mouseY > y && mouseY < y + optionHeight) {
             binaryOptions[i] = binaryOptions[i] ? 0 : 1; // Toggle the option
             if (binaryOptions[i] === binaryAnswer[i]) {
-              //clickSound.play(); // Play click sound
+              sounds.playClickSound();
             }
             else {
               lives--;
-              //incorrectSound.play();
+              sounds.playIncorrectSound();
             }
             checkAnswer();
             break;
@@ -180,15 +176,13 @@ function checkAnswer() {
   playerAnswer = parseInt(binaryString, 2);
   if (playerAnswer === currentDecimal) {
       score++;
-      //correctSound.play(); // Play sound for correct answer
+      sounds.playCorrectSound();
       background('#d5ffd5'); 
-      newRound(); // Start a new round
+      newRound(); 
   } 
     else if (lives < 0) {
     isGameStarted = false;
-    //incorrectSound.play();
-    score = 0; // Reset score if incorrect
-    lives = 3;
+    sounds.playIncorrectSound();
     newRound(); // Start a new round 
     }
   }
