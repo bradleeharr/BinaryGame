@@ -6,22 +6,4 @@ class Fonts {
         this.largeFontSize;
         this.smallFontSize;
     }
-
-    playCorrectSound() {
-      this.correctSound.play();
-    }
-  
-    playIncorrectSound() {
-      this.incorrectSound.play();
-    }
-  
-    playClickSound() {
-      this.clickSound.play();
-    }
-
-    setVolume(volume) {
-        this.correctSound.setVolume(volume*0.5);
-        this.incorrectSound.setVolume(volume*0.25);
-        this.clickSound.setVolume(volume*0.1);
-      }
   }

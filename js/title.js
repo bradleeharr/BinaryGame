@@ -80,15 +80,9 @@ function drawTitleScreen() {
     fill(WHITEG);
 
     
-    startButton.draw();
-
-    let button2X = width/2-buttonW/2 + 80;
-    let button2Y = height/2+50;
-    drawButton(button2X, button2Y, buttonW, buttonH, 'Hex');
-
-    let button3X = width/2-buttonW;
-    let button3Y = height/2+180;
-    drawButton(button3X, button3Y, 2*buttonW, buttonH, 'Settings');
-    fill(WHITE); text('Coming Soon!', button2X+50, button2Y+80);
+    startBinaryButton.draw();
+    startHexButton.draw();
+    settingsButton.draw();
+    fill(WHITE); text('Coming Soon!', startHexButton.x+50, startHexButton.y+80);
   }
 
