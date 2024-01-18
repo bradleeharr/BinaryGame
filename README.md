@@ -10,16 +10,18 @@ This program provides a useful tool for practicing how to quickly convert binary
 
 
 <p align="center"> 
-  <img src=https://github.com/bradleeharr/blg/assets/56418392/5ecdf647-c06d-4d4e-9e9a-4f1d348e4c59"/>
+
+  <img src="https://github.com/bradleeharr/blg/assets/56418392/12403ae7-3ab9-43c9-9a68-4d27097a6c50"/>
 </p>
 
 - [x] Binary to Decimal Conversion
 - [x] Title Screen
 - [x] Title Screen Animation
-- [ ] Hexadecimal Conversion
+- [x] Hexadecimal to Decimal Conversion
+- [ ] Hexadecimal to Binary
 - [ ] Masking Operations with ^ & and |
 - [x] Sound Effects
-- [ ] Sound Options
+- [x] Sound Options
 - [ ] Mobile Support and Screen Resolution Layout fixes
 
 Made using [p5.js](https://p5js.org/).
