@@ -73,6 +73,5 @@ function drawTitleScreen() {
     startBinaryButton.draw();
     startHexButton.draw();
     settingsButton.draw();
-    fill(WHITE); text('Coming Soon!', startHexButton.x+50, startHexButton.y+80);
   }
 
