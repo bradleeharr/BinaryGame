@@ -6,7 +6,7 @@ https://bradleeharr.github.io/blg/
 
 Binary is crucial to understanding the operation and logic behind computing. It is widely useful among areas such as digital ciruit design, computer hardware design, computer architecture, computer networking, computer software, and information technology. For example, answering questions about IP Address subnetting requires binary to understand the subnet masks and naming conventions that are used. The Cisco CCNA certification exam asks questions about this topic within a limited time frame, so it is useful for an exam-taker to have the ability to convert quickly.  
 
-This program provides a useful tool for practicing how to quickly convert binary numbers and decimal numbers.
+This program provides a useful tool for practicing how to quickly convert binary numbers and hexadecimal numbers.
 
 
 <p align="center"> 
