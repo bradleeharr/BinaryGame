@@ -10,7 +10,6 @@ class Button {
 
     draw() {
       fill(this.color);
-      console.log(this.color);
       rect(this.x, this.y, this.w, this.h, 10);
       fill('#121212');
       textSize(22);

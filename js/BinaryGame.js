@@ -1,7 +1,6 @@
-class BinaryGame {
+class BinaryGame extends Game {
     constructor(sounds, settings) {
-        this.sounds = sounds;
-        this.settings = settings;
+        super(sounds, settings);
         this.score = 0
         this.lives = 3
         this.maxBinaryLength = 2
@@ -10,13 +9,12 @@ class BinaryGame {
         this.xStart = 50; // X-coordinate where options start
         this.spacing = 90; // Spacing between options
         this.binaryAnswer;
-        this.binaryOptions;
-        this.playerAnswer;
         this.currentDecimal;
 
         this.gameEnd = false;
         this.newRound()
     }
+    
     newRound() {
         this.maxBinaryLength = 2;
         this.currentDecimal = Math.floor(Math.random() * 256 ) + 1; // Adjust range as needed
@@ -27,7 +25,7 @@ class BinaryGame {
               maxVal = maxVal**2;
           }
       
-        this.binaryOptions = Array(this.maxBinaryLength).fill(0);
+        this.options = Array(this.maxBinaryLength).fill(0);
       
         let bits = this.currentDecimal.toString(2).split('').map(Number);
         let padding = Array(this.maxBinaryLength - bits.length).fill(0);
@@ -55,9 +53,8 @@ class BinaryGame {
         textAlign(CENTER);
         // Style binary choice buttons
         for (let i = 0; i < this.maxBinaryLength; i++) {
-            console.log("Reached");
-            let isSelected = this.binaryOptions[i];
-            let isCorrect = (this.binaryAnswer[i] == this.binaryOptions[i]);
+            let isSelected = this.options[i];
+            let isCorrect = (this.binaryAnswer[i] == this.options[i]);
             let x = this.xStart + i * this.spacing; // Increase spacing
       
             /* Choose Color of Selection */
@@ -89,19 +86,6 @@ class BinaryGame {
         } 
     }
 
-    checkAnswer() {
-        let binaryString = this.binaryOptions.join('');
-        this.playerAnswer = parseInt(binaryString, 2);
-        if (this.playerAnswer === this.currentDecimal) {
-            this.score++;
-            background('#d5ffd5'); 
-            this.newRound(); 
-        } 
-          else if (this.lives < 0) {
-          this.gameEnd = true;
-          }
-        }
-
     mousePressed(mouseX, mouseY) {
         for (let i = 0; i < this.maxBinaryLength; i++) {
             let x = this.xStart + i * this.spacing;
@@ -109,16 +93,21 @@ class BinaryGame {
     
             // Check if the mouse click is within the boundaries of the rectangle
             if (mouseX > x && mouseX < x + this.optionWidth && mouseY > y && mouseY < y + this.optionHeight) {
-                this.binaryOptions[i] = this.binaryOptions[i] ? 0 : 1; // Toggle the option
-                if (this.binaryOptions[i] === this.binaryAnswer[i]) {
-                  sounds.playCorrectSound();
+                this.options[i] = this.options[i] ? 0 : 1; // Toggle the option
+
+                let optionsJoin = this.options.join('');
+                this.playerAnswer = parseInt(optionsJoin, 2);
+                if (this.checkAnswer()) 
+                {
+                  this.sounds.playCorrectSound();
+                }
+                if (this.options[i] === this.binaryAnswer[i]) {
+                  this.sounds.playClickSound();
                 }
                 else {
                   this.lives--;
-                  sounds.playIncorrectSound();
-                }
-                this.checkAnswer();
-                break;
+                  this.sounds.playIncorrectSound();
+                }  
             }
           }
     }

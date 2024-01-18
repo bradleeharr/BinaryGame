@@ -34,11 +34,12 @@ class SettingsWindow {
       if (this.showValuesButton.isClicked(mouseX, mouseY))
       {
         this.settings.showValues ^= 1;
+        this.sounds.playClickSound();
       }
       else if (this.soundButton.isClicked(mouseX, mouseY))
       {
         this.sounds.toggleSound();
-        console.log(sounds.soundOn);
+        this.sounds.playClickSound();
       }
       else 
       {

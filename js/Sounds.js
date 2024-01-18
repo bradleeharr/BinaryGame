@@ -27,7 +27,7 @@ class Sounds {
     setVolume(volume) {
         this.correctSound.setVolume(volume*0.5);
         this.incorrectSound.setVolume(volume*0.25);
-        this.clickSound.setVolume(volume*0.1);
+        this.clickSound.setVolume(volume*0.2);
       }
 
     toggleSound() {

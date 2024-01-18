@@ -62,7 +62,6 @@ function drawTitleScreen() {
     if (time < 0 && !latch) { 
       colorIdx = (colorIdx + 1) % colors.length
       latch = 1;
-      console.log(colorIdx);
     }
     if (time > 0 && latch) {
       latch = 0;

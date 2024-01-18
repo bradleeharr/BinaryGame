@@ -1,4 +1,4 @@
-class HexGame {
+class HexGame extends Game {
     constructor(sounds, settings) {
         this.sounds = sounds;
         this.settings = settings;
@@ -107,15 +107,19 @@ class HexGame {
             // Check if the mouse click is within the boundaries of the rectangle
             if (mouseX > x && mouseX < x + this.optionWidth && mouseY > y && mouseY < y + this.optionHeight) {
                 this.binaryOptions[i] = this.binaryOptions[i] ? 0 : 1; // Toggle the option
-                if (this.binaryOptions[i] === this.binaryAnswer[i]) {
-                  sounds.playCorrectSound();
+                
+                if (this.checkAnswer())
+                {
+                  this.sounds.playCorrectSound();
+                  console.log("Correct Sound");
+                }
+                else if (this.binaryOptions[i] === this.binaryAnswer[i]) {
+                  this.sounds.playClickSound();
                 }
                 else {
                   this.lives--;
-                  sounds.playIncorrectSound();
+                  this.sounds.playIncorrectSound();
                 }
-                this.checkAnswer();
-                break;
             }
           }
     }
