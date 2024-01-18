@@ -1,13 +1,11 @@
 class BinaryGame extends Game {
     constructor(sounds, settings) {
         super(sounds, settings);
-        this.score = 0
-        this.lives = 3
         this.maxBinaryLength = 2
-        this.optionWidth = 70;
-        this.optionHeight = 70;
+        this.optionWidth = 60;
+        this.optionHeight = 60;
         this.xStart = 50; // X-coordinate where options start
-        this.spacing = 90; // Spacing between options
+        this.spacing = 80; // Spacing between options
         this.binaryAnswer;
         this.currentDecimal;
 
@@ -17,7 +15,7 @@ class BinaryGame extends Game {
     
     newRound() {
         this.maxBinaryLength = 2;
-        this.currentDecimal = Math.floor(Math.random() * 256 ) + 1; // Adjust range as needed
+        this.currentDecimal = Math.floor(Math.random() * this.settings.maxBinaryVal ) + 1; // Adjust range as needed
         
         let maxVal = 4;
           while (maxVal <= this.currentDecimal) {
@@ -33,19 +31,6 @@ class BinaryGame extends Game {
         this.binaryAnswer = padding.concat(bits);
         this.playerAnswer = 0;
       }
-
-    drawInfo() {
-        textAlign(CENTER);
-        background(BLACK);
-        fill(WHITEG); 
-        textSize(32);
-        text(`Make the Decimal Number: ${this.currentDecimal}`, width/2, height/2 - 250);
-        text(`Lives: ${this.lives}/3`, width/2 + 200, height/2 - 350);
-        text(`Score: ${this.score}`, width/2 - 200, height/2 - 350);
-        textSize(80);
-        fill(WHITE);
-        text(`${this.playerAnswer}`, width/2, height/2 - 125);
-    }
     
     drawGame() {
         this.drawInfo();
@@ -68,7 +53,7 @@ class BinaryGame extends Game {
               fill('#FFFFFF');
             }
             /* Draw box */
-            stroke('#333');
+            stroke('#111');
             rect(x, height/2+50, this.optionWidth, this.optionHeight, 15); 
          
             /* Draw bits */
@@ -76,12 +61,12 @@ class BinaryGame extends Game {
                 fill('#FFFFFF'); textSize(64);
                 text('1', x + this.optionWidth/2, height/2+10);
             } else {
-                fill('#888'); textSize(64);
+                fill('#ddd'); textSize(64);
                 text('0', x + this.optionWidth/2, height/2+10);
             }
             /* Draw numbers Below */
             if (this.settings.showValues) {
-              textSize(22); text(2**(this.maxBinaryLength-i-1), x + this.optionWidth/2 , height/2 + this.optionHeight + 100);
+              textSize(22); text(2**(this.maxBinaryLength-i-1), x + this.optionWidth/2 , height/2 + this.optionHeight + 25);
             }
         } 
     }
@@ -101,7 +86,7 @@ class BinaryGame extends Game {
                 {
                   this.sounds.playCorrectSound();
                 }
-                if (this.options[i] === this.binaryAnswer[i]) {
+                else if (this.options[i] === this.binaryAnswer[i]) {
                   this.sounds.playClickSound();
                 }
                 else {
@@ -111,4 +96,18 @@ class BinaryGame extends Game {
             }
           }
     }
+
+    checkAnswer() {
+      if (this.playerAnswer === this.currentDecimal) {
+          this.score++;
+          background('#d5ffd5'); 
+          setTimeout(() => this.newRound(), 2000); // Wait for 2000 milliseconds before starting a new round
+          this.colorIdx = (this.colorIdx + 1) % this.gradientColors.length
+          return true
+      } 
+        else if (this.lives < 0) {
+        this.gameEnd = true;
+        }
+        return false
+      }
 }

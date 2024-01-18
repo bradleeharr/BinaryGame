@@ -32,14 +32,6 @@ function scrollingBar(time, height, numCols, BGCOLOR) {
   }
 }
 
-function drawButton(X, Y, w, h, label) {
-  fill(WHITEG);
-  rect(X, Y, w, h, 10);
-  fill('#121212');
-  textSize(22);
-  text(label, X+w/2, Y+h/2+8);
-}
-
 function drawTitleText()
 {
   textAlign(CENTER);

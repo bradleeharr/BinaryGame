@@ -1,9 +1,7 @@
 const BLACK = '#121212'
-const WHITEG = '#11FF11'
-const DARKG = '#22DD22'
+const WHITEG = '#77FF77'
+const DARKG = '#119911'
 const WHITE = '#FFFFFF'
-
-
 
 function dec2bin(dec) {
     return (dec >>> 0).toString(2);

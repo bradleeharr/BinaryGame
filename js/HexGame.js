@@ -1,126 +1,88 @@
 class HexGame extends Game {
-    constructor(sounds, settings) {
-        this.sounds = sounds;
-        this.settings = settings;
-        this.score = 0
-        this.lives = 3
-        this.maxBinaryLength = 2
-        this.binaryAnswer;
-        this.binaryOptions;
-        this.playerAnswer;
-        this.currentDecimal;
-        this.optionWidth = 70;
-        this.optionHeight = 70;
-        this.xStart = 50; // X-coordinate where options start
-        this.spacing = 90; // Spacing between options
-        this.gameEnd = false;
-    }
-    newRound() {
-        this.maxHexLength = 2;
-        this.currentDecimal = Math.floor(Math.random() * 2048 ) + 1; // Adjust range as needed
-        
-        let maxVal = 4;
-          while (maxVal <= this.currentDecimal) {
-              this.maxBinaryLength *= 2;
-              maxVal = maxVal**2;
-          }
-      
-        this.binaryOptions = Array(this.maxBinaryLength).fill(0);
-      
-        let bits = this.currentDecimal.toString(2).split('').map(Number);
-        let padding = Array(this.maxBinaryLength - bits.length).fill(0);
-      
-        this.binaryAnswer = padding.concat(bits);
-        this.playerAnswer = 0;
-      }
+  constructor(sounds, settings) {
+      super(sounds, settings);
+      this.maxHexLength = 2; // Adjust as needed for the maximum number of hex digits
+      this.optionWidth = 50;
+      this.optionHeight = 50;
+      this.xStart = 50; // X-coordinate where options start
+      this.spacing = 90; // Spacing between options
+      this.hexAnswer;
+      this.currentDecimal;
 
-    drawInfo() {
-        textAlign(CENTER);
-        background(BLACK);
-        fill(WHITEG); 
-        textSize(32);
-        text(`Make the Decimal Number: ${this.currentDecimal}`, width/2, height/2 - 250);
-        text(`Lives: ${this.lives}/3`, width/2 + 200, height/2 - 350);
-        text(`Score: ${this.score}`, width/2 - 200, height/2 - 350);
-        textSize(80);
-        fill(WHITE);
-        text(`${this.playerAnswer}`, width/2, height/2 - 125);
-    }
+      this.gameEnd = false;
+
+      this.hexOptionsGrid;
+
+      this.newRound();
+      this.playerAnswer;
+      this.playerAnswerArr = Array(this.maxHexLength).fill('0');
+
+  }
+
+  newRound() {
+      this.currentDecimal = Math.floor(Math.random() * this.settings.maxHexVal) + 1; // Adjust range as needed
     
-    drawGame() {
-        this.drawInfo();
-        this.xStart = width / 2 - (this.spacing * (this.maxBinaryLength))/2;
-        textAlign(CENTER);
-        // Style binary choice buttons
-        for (let i = 0; i < this.maxBinaryLength; i++) {
-            let isSelected = this.binaryOptions[i];
-            let isCorrect = (this.binaryAnswer[i] == this.binaryOptions[i]);
-            let x = this.xStart + i * this.spacing; // Increase spacing
-      
-            /* Choose Color of Selection */
-            if (isSelected && isCorrect) {
-              fill('#4CAF50'); // Green
-            }
-            if (isSelected && !isCorrect) {
-              fill('#AF4C50'); // Red
-            }
-            if (!isSelected) {
-              fill('#FFFFFF');
-            }
-            /* Draw box */
-            stroke('#333');
-            rect(x, height/2+50, this.optionWidth, this.optionHeight, 15); 
-         
-            /* Draw bits */
-            if (isSelected) {
-                fill('#FFFFFF'); textSize(64);
-                text('1', x + this.optionWidth/2, height/2+10);
-            } else {
-                fill('#888'); textSize(64);
-                text('0', x + this.optionWidth/2, height/2+10);
-            }
-            /* Draw numbers Below */
-            if (this.showValues) {
-              textSize(22); text(2**(this.maxBinaryLength-i-1), x + this.optionWidth/2 , height/2 + this.optionHeight + 100);
-            }
-        } 
+      this.maxHexLength = Math.ceil(Math.log(this.currentDecimal + 1) / Math.log(16));
+      this.options = Array(this.maxHexLength).fill(0);
+
+      let hexDigits = this.currentDecimal.toString(16).toUpperCase().split('');
+      let padding = Array(this.maxHexLength - hexDigits.length).fill('0');
+
+      this.hexAnswer = padding.concat(hexDigits);
+      this.playerAnswer = 0
+      this.playerAnswerArr = Array(this.maxHexLength).fill(0);
+      this.hexOptionsGrid = new HexOptionsGrid(this.maxHexLength, this.optionWidth, this.optionHeight, 0, 0);
+  }
+
+  drawGame() {
+      this.drawInfo();
+      text(`0x${this.playerAnswer}`, width/2, height/2 + 125);
+      text(`0x${this.hexAnswer}`, width/2, height/2 + 200);
+      text(`0x${this.playerAnswerArr}`, width/2, height/2 + 300);
+
+      this.xStart = width / 2 - (this.spacing * (this.maxHexLength))/2;
+      textAlign(CENTER);
+ 
+      this.hexOptionsGrid.draw();
+
+
     }
 
-    checkAnswer() {
-        let binaryString = this.binaryOptions.join('');
-        this.playerAnswer = parseInt(binaryString, 2);
-        if (this.playerAnswer === this.currentDecimal) {
-            this.score++;
-            background('#d5ffd5'); 
-            this.newRound(); 
-        } 
-          else if (this.lives < 0) {
-          this.gameEnd = true;
-          }
+  mousePressed(mouseX, mouseY) {
+    let clickedOption = this.hexOptionsGrid.checkClicked(mouseX, mouseY);
+    if (clickedOption) {
+        this.playerAnswerArr[clickedOption.col] = clickedOption.value;
+        this.playerAnswer = parseInt(this.playerAnswerArr.join(''));
+        if (this.playerAnswerArr[clickedOption.col] === this.hexAnswer[clickedOption.col]) {
+            if (this.checkAnswer()) {
+                this.sounds.playCorrectSound();
+                this.newRound();
+            }
+            else {
+                this.sounds.playClickSound();
+            }
         }
-
-    mousePressed(mouseX, mouseY) {
-        for (let i = 0; i < this.maxBinaryLength; i++) {
-            let x = this.xStart + i * this.spacing;
-            let y = height/2+50;
-    
-            // Check if the mouse click is within the boundaries of the rectangle
-            if (mouseX > x && mouseX < x + this.optionWidth && mouseY > y && mouseY < y + this.optionHeight) {
-                this.binaryOptions[i] = this.binaryOptions[i] ? 0 : 1; // Toggle the option
-                
-                if (this.checkAnswer())
-                {
-                  this.sounds.playCorrectSound();
-                  console.log("Correct Sound");
-                }
-                else if (this.binaryOptions[i] === this.binaryAnswer[i]) {
-                  this.sounds.playClickSound();
-                }
-                else {
-                  this.lives--;
-                  this.sounds.playIncorrectSound();
-                }
+        else {
+            this.lives--;
+            this.sounds.playIncorrectSound();
+            if (this.lives < 0) {
+            this.gameEnd = true;
             }
-          }
+        }
     }
+  }
+
+  checkAnswer() {
+    if (this.playerAnswer === this.currentDecimal) {
+        this.score++;
+        setTimeout(() => this.newRound(), 2000); // Wait for 2000 milliseconds before starting a new round
+        this.colorIdx = (this.colorIdx + 1) % this.gradientColors.length;
+        return true;
+    } else if (this.lives < 0) {
+        this.gameEnd = true;
+    }
+    return false;
 }
+
+}
+
