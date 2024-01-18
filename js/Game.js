@@ -13,7 +13,7 @@ class Game {
         
         this.colorIdx = 0
     }
-
+    resize() {};
     drawGradient(c1, c2) {
         for (let y = 0; y < height; y++) {
             let inter = map(y, 0, height, 0, 1);
@@ -32,12 +32,11 @@ class Game {
 
         fill(WHITEG); 
         textSize(32);
-        text(`Make the Decimal Number: ${this.currentDecimal}`, width/2, height/2 - 250);
-        text(`Lives: ${this.lives}/3`, width/2 + 200, height/2 - 350);
-        text(`Score: ${this.score}`, width/2 - 200, height/2 - 350);
+        text(`Make the Decimal Number: ${this.currentDecimal}`, width/2, height/2 - 150);
+        text(`Lives: ${this.lives}`, width/2 + 200, height/2 - 250);
+        text(`Score: ${this.score}`, width/2 - 200, height/2 - 250);
         textSize(80);
         fill(WHITE);
-        text(`${this.playerAnswer}`, width/2, height/2 - 125);
     }
 
 

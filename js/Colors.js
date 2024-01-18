@@ -13,8 +13,6 @@ class Colors {
       { start: color('#121212'), end: color('#58D68D') },
       { start: color('#121212'), end: color('#48C9B0') },
       { start: color('#121212'), end: color('#1ED6A0') },
-      { start: color(255, 255, 255), end: color(120,120,255)},
-      { start: color(7, 249, 255), end: color(192, 192, 192) }, // Electric Blue to Silver
       { start: color(255, 110, 199), end: color(0, 255, 255) }, // Neon Pink to Cyan
       { start: color('#121212'), end: color('#1B263B') }, // Dark Gray to Deep Blue-Gray
       { start: color('#1B263B'), end: color('#3C4F76') }, // Deep Blue-Gray to Slate Blue

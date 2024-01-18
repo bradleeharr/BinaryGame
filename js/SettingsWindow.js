@@ -12,11 +12,11 @@ class SettingsWindow {
       let H = 60;
       let X = width/2-W/2;
       let Y = height/2+50;
-      this.showValuesButton = new Button(X, Y, W, H, 'Display Digit Values', '#fff');
-      this.soundButton = new Button(X, Y+80, W, H, 'Toggle Sound', '#fff');
-      this.binaryDigitsButton = new Button(X, Y+160, W, H, `Max Binary Value: ${this.settings.maxBinaryVal}`, '#fff')
-      
-      this.buttons = [this.showValuesButton, this.soundButton, this.binaryDigitsButton]
+      this.showValuesButton = new Button(X, Y-80, W, H, 'Display Digit Values', '#fff');
+      this.soundButton = new Button(X, Y, W, H, 'Toggle Sound', '#fff');
+      this.binaryDigitsButton = new Button(X, Y+80, W, H, `Max Binary Value: ${this.settings.maxBinaryVal}`, '#fff')
+      this.hexDigitsButton = new Button(X, Y+160, W, H, `Max Hex Value: ${this.settings.maxHexVal}`, '#fff')
+      this.buttons = [this.showValuesButton, this.soundButton, this.binaryDigitsButton, this.hexDigitsButton]
     }
   
     draw() {
@@ -24,7 +24,7 @@ class SettingsWindow {
       rect(this.x, this.y, this.w, this.h, 10);
       fill(WHITEG);
       textSize(22);
-      text('Settings', this.x + this.w / 2, this.y + this.h / 2 + 8);
+      text('Settings', this.x + this.w / 2, this.y + this.h / 2 - 72);
       
       this.settings.showValues ? this.showValuesButton.color = '#fff' : this.showValuesButton.color = '#777';
       this.sounds.soundOn ? this.soundButton.color = '#fff' : this.soundButton.color = '#777';
@@ -49,6 +49,11 @@ class SettingsWindow {
       {
         this.settings.editMaxBinaryVal();
         this.binaryDigitsButton.label = `Max Binary Val: ${this.settings.maxBinaryVal}`;
+      }
+      else if (this.hexDigitsButton.isClicked(mouseX, mouseY)) 
+      {
+        this.settings.editMaxHexVal();
+        this.hexDigitsButton.label = `Max Hex Val: ${this.settings.maxHexVal}`;
       }
       else 
       {

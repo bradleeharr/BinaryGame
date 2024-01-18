@@ -10,13 +10,13 @@ class HexOption {
 
     draw() {
         stroke('#111');
-        fill(this.isSelected ? '#ddd' : '#fff');
+        fill(this.isSelected ? '#6f6' : '#fff');
         rect(this.x, this.y, this.width, this.height, 10);
 
         fill('#000');
         textSize(20);
         textAlign(CENTER);
-        text(this.value.toString(16).toUpperCase(), this.x + this.width / 2, this.y + this.height / 2);
+        text(this.value.toString(16).toUpperCase(), this.x + this.width / 2, this.y + this.height/1.3 );
     }
 
     checkClicked(mouseX, mouseY) {

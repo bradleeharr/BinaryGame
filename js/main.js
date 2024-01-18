@@ -42,6 +42,7 @@ function titleButtons() {
 function windowResized() {
   resizeCanvas(windowWidth*0.99, windowHeight*0.99);
   titleButtons();
+  game?.resize();
 }
 
 function draw() {

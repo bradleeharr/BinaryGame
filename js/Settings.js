@@ -2,8 +2,8 @@ class Settings {
     constructor() {
       this.showValues = true;
       this.sound = true;
-      this.maxBinaryVal = 256;
-      this.maxHexVal = 1024;
+      this.maxBinaryVal = 16;
+      this.maxHexVal = 16;
     }
 
     editMaxBinaryVal() {
@@ -12,6 +12,15 @@ class Settings {
       }
       else {
         this.maxBinaryVal *= 2;
+      }
+    }
+
+    editMaxHexVal() {
+      if (this.maxHexVal >= 1024) {
+        this.maxHexVal = 4;
+      }
+      else {
+        this.maxHexVal *= 2;
       }
     }
   }

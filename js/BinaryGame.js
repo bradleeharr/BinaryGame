@@ -34,6 +34,9 @@ class BinaryGame extends Game {
     
     drawGame() {
         this.drawInfo();
+        
+        text(`${this.playerAnswer}`, width/2, height/2 - 75);
+
         this.xStart = width / 2 - (this.spacing * (this.maxBinaryLength))/2;
         textAlign(CENTER);
         // Style binary choice buttons
@@ -99,7 +102,8 @@ class BinaryGame extends Game {
 
     checkAnswer() {
       if (this.playerAnswer === this.currentDecimal) {
-          this.score++;
+          this.score+=this.currentDecimal;
+          this.settings.maxBinaryVal = Math.ceil(1.2*this.settings.maxBinaryVal);
           background('#d5ffd5'); 
           setTimeout(() => this.newRound(), 2000); // Wait for 2000 milliseconds before starting a new round
           this.colorIdx = (this.colorIdx + 1) % this.gradientColors.length
