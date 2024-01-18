@@ -11,7 +11,7 @@ This program provides a useful tool for practicing how to quickly convert binary
 
 <p align="center"> 
 
-  <img src="https://github.com/bradleeharr/blg/assets/56418392/ce2d7cb9-cfce-4c9b-b554-0470a1456c4b">
+  <img src="https://github.com/bradleeharr/blg/assets/56418392/1656bd4a-a7fa-47b7-8cdb-5f669ebc7b33">
 
 </p>
 
