@@ -1,6 +1,6 @@
 # Binary Learning Game
 https://bradleeharr.github.io/blg/
-  <h1 align="center"> 2^10</h1>
+  <h1 align="center"> Blg </h1>
   
   >Binary: a 2-bit number system, used in computers
 
