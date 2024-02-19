@@ -7,8 +7,6 @@ https://bradleeharr.github.io/blg/
 This program provides a useful tool for practicing how to quickly convert binary numbers and hexadecimal numbers.
 Binary is crucial to understanding the operation and logic behind computing. It is widely useful among areas such as digital ciruit design, computer hardware design, computer architecture, computer networking, computer software, and information technology. 
 
-For example, answering questions about IP Address subnetting requires binary to understand the subnet masks and naming conventions that are used. 
-Or understanding binary addition, masking operations in microcontrollers, hashing algorithms, encryption -- the list of possible uses is vast.
 
 
 
