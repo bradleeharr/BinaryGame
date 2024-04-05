@@ -1,6 +1,6 @@
 # Binary Learning Game
 https://bradleeharr.github.io/HexBitGame/
-  <h1 align="center"> Blg </h1>
+  <h1 align="center"> HexBitGame </h1>
   
   >Binary: a 2-bit number system, used in computers
 
