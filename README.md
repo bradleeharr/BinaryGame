@@ -1,11 +1,11 @@
 # Binary Learning Game
-https://bradleeharr.github.io/blg/
+https://bradleeharr.github.io/HexBitGame/
   <h1 align="center"> Blg </h1>
   
   >Binary: a 2-bit number system, used in computers
 
 This program provides a useful tool for practicing how to quickly convert binary numbers and hexadecimal numbers.
-Binary is crucial to understanding the operation and logic behind computing. It is widely useful among areas such as digital ciruit design, computer hardware design, computer architecture, computer networking, computer software, and information technology. 
+Binary is crucial to understanding the operation and logic behind computing. It is widely useful in areas such as digital circuit design, computer hardware design, computer architecture, computer networking, computer software, and information technology. 
 
 
 
