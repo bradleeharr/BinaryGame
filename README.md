@@ -1,5 +1,5 @@
 # Binary Learning Game
-https://bradleeharr.github.io/HexBitGame/
+https://bradleeharr.github.io/BinaryGame/
   <h1 align="center"> HexBitGame </h1>
   
   >Binary: a 2-bit number system, used in computers
