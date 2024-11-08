@@ -4,8 +4,10 @@ https://bradleeharr.github.io/BinaryGame/
   
   >Binary: a 2-bit number system, used in computers
 
-This program provides a useful tool for practicing how to quickly convert binary numbers and hexadecimal numbers.
 Binary is crucial to understanding the operation and logic behind computing. It is widely useful in areas such as digital circuit design, computer hardware design, computer architecture, computer networking, computer software, and information technology. 
+
+This program is a simple game for practicing how to quickly convert binary numbers and hexadecimal numbers.
+
 
 
 
