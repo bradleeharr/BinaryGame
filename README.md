@@ -22,10 +22,10 @@ This program is a simple game for practicing how to quickly convert binary numbe
 - [x] Title Screen
 - [x] Title Screen Animation
 - [x] Hexadecimal to Decimal Conversion
-- [ ] Hexadecimal to Binary
-- [ ] Masking Operations with ^ & and |
 - [x] Sound Effects
 - [x] Sound Options
+- [ ] Hexadecimal to Binary
+- [ ] Masking Operations with ^ & and |
 - [ ] Mobile Support and Screen Resolution Layout fixes
 
 Made using [p5.js](https://p5js.org/).
